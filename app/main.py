@@ -3,10 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
-from app.database import Base, engine
 from app.routers import items as items_router
-
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="FastAPI SQLite CRUD Example",
