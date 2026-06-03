@@ -1,13 +1,13 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 class ItemCreate(BaseModel):
-    name: str
-    price: float
+    name: str = Field(..., min_length=1, max_length=100)
+    price: float = Field(..., gt=0)
 
 
 class ItemUpdate(BaseModel):
-    name: str | None = None
-    price: float | None = None
+    name: str | None = Field(None, min_length=1, max_length=100)
+    price: float | None = Field(None, gt=0)
 
 
 class ItemResponse(BaseModel):
@@ -18,8 +18,8 @@ class ItemResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 class UserCreate(BaseModel):
-    username: str
-    password: str
+    username: str = Field(..., min_length=3, max_length=50)
+    password: str = Field(..., min_length=8)
 
 class UserResponse(BaseModel):
     id: int

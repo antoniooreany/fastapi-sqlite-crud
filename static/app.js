@@ -14,13 +14,29 @@ async function loadItems() {
 
     for (const item of items) {
       const li = document.createElement("li");
-      li.innerHTML = `
-        <span><strong>${item.name}</strong> — $${item.price}</span>
-        <div class="actions">
-          <button onclick="discountItem(${item.id})">Discount</button>
-          <button onclick="deleteItem(${item.id})">Delete</button>
-        </div>
-      `;
+      
+      const span = document.createElement("span");
+      const strong = document.createElement("strong");
+      strong.textContent = item.name;
+      span.appendChild(strong);
+      span.appendChild(document.createTextNode(` — $${item.price}`));
+      li.appendChild(span);
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const discountBtn = document.createElement("button");
+      discountBtn.textContent = "Discount";
+      discountBtn.onclick = () => discountItem(item.id);
+      
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.onclick = () => deleteItem(item.id);
+
+      actions.appendChild(discountBtn);
+      actions.appendChild(deleteBtn);
+      li.appendChild(actions);
+
       list.appendChild(li);
     }
   } catch (error) {
@@ -39,7 +55,8 @@ form.addEventListener("submit", async (e) => {
     const response = await fetch("/items/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify({ name, price })
     });
@@ -59,7 +76,9 @@ form.addEventListener("submit", async (e) => {
 
 async function discountItem(id) {
   try {
-    const responseGet = await fetch(`/items/${id}`);
+    const responseGet = await fetch(`/items/${id}`, {
+      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+    });
     if (!responseGet.ok) {
       throw new Error(`HTTP ${responseGet.status}`);
     }
@@ -70,7 +89,8 @@ async function discountItem(id) {
     const responsePatch = await fetch(`/items/${id}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify({ price: newPrice })
     });
@@ -90,7 +110,8 @@ async function discountItem(id) {
 async function deleteItem(id) {
   try {
     const response = await fetch(`/items/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
     });
 
     if (!response.ok) {
