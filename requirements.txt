@@ -4,3 +4,6 @@ sqlalchemy
 pytest
 httpx
 pytest-cov
+mkdocs
+mkdocs-material
+mkdocstrings[python]

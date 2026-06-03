@@ -1,0 +1,6 @@
+site_name: FastAPI SQLite CRUD Example
+theme:
+  name: material
+plugins:
+  - search
+  - mkdocstrings
