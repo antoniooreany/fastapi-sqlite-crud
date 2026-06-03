@@ -5,3 +5,4 @@ __pycache__/
 items.db
 test.db
 .coverage
+.env

@@ -5,11 +5,12 @@ from fastapi.responses import FileResponse
 
 from app.routers import items as items_router
 from app.logging_utils import setup_logging
+from app.config import settings
 
 setup_logging()
 
 app = FastAPI(
-    title="FastAPI SQLite CRUD Example",
+    title=settings.app_title,
     description="Simple REST API with FastAPI, SQLite and a tiny frontend",
     version="0.1.0",
 )
