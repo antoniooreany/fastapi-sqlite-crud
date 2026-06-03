@@ -4,6 +4,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 from app.routers import items as items_router
+from app.logging_utils import setup_logging
+
+setup_logging()
 
 app = FastAPI(
     title="FastAPI SQLite CRUD Example",
