@@ -33,13 +33,16 @@ def setup_db():
 def client():
     return TestClient(app)
 
-
 def test_create_item(client):
     response = client.post("/items/", json={"name": "Test Item", "price": 10.5})
     assert response.status_code == 201
     data = response.json()
     assert data["name"] == "Test Item"
     assert "id" in data
+
+def test_create_item_invalid(client):
+    response = client.post("/items/", json={"name": "Invalid"})
+    assert response.status_code == 422
 
 def test_list_items(client):
     response = client.get("/items/")
@@ -55,6 +58,10 @@ def test_get_item(client):
     assert response.status_code == 200
     assert response.json()["name"] == "Get Me"
 
+def test_get_item_not_found(client):
+    response = client.get("/items/9999")
+    assert response.status_code == 404
+
 def test_update_item(client):
     # Create item first
     create_resp = client.post("/items/", json={"name": "Update Me", "price": 5.0})
@@ -63,6 +70,10 @@ def test_update_item(client):
     response = client.patch(f"/items/{item_id}", json={"price": 15.0})
     assert response.status_code == 200
     assert response.json()["price"] == 15.0
+
+def test_update_item_not_found(client):
+    response = client.patch("/items/9999", json={"price": 15.0})
+    assert response.status_code == 404
 
 def test_delete_item(client):
     # Create item first
@@ -75,3 +86,7 @@ def test_delete_item(client):
     # Verify deletion
     get_resp = client.get(f"/items/{item_id}")
     assert get_resp.status_code == 404
+
+def test_delete_item_not_found(client):
+    response = client.delete("/items/9999")
+    assert response.status_code == 404
