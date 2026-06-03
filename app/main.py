@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
-from app.routers import items as items_router
+from app.routers import items as items_router, auth as auth_router
 from app.logging_utils import setup_logging
 from app.config import settings
 
@@ -30,6 +30,7 @@ app.add_middleware(
 )
 
 app.include_router(items_router.router)
+app.include_router(auth_router.router)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 

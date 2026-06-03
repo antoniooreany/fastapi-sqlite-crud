@@ -3,13 +3,14 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app import schemas, crud
+from app import schemas, crud, auth, models
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
     prefix="/items",
     tags=["items"],
+    dependencies=[Depends(auth.get_current_user)]
 )
 
 
