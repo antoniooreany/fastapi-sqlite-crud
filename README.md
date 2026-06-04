@@ -14,10 +14,19 @@ Simple REST API built with FastAPI, SQLAlchemy and SQLite, plus a tiny frontend 
 
 ```text
 fastapi-sqlite-crud/
-├── app/
-├── static/
-├── requirements.txt
-└── README.md
+├── .github/      # CI/CD workflows
+├── alembic/      # Database migrations
+├── app/          # Backend source code
+├── docs/         # Documentation files
+├── static/       # Frontend files
+├── tests/        # Test suite
+├── .env          # Environment variables
+├── .gitignore    # Git ignored files
+├── Dockerfile    # Docker build instructions
+├── docker-compose.yml # Docker orchestration
+├── mkdocs.yml    # MkDocs configuration
+├── README.md     # Project documentation
+└── requirements.txt # Project dependencies
 ```
 
 ## Run
