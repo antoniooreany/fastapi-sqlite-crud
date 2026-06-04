@@ -34,6 +34,26 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
+## How to run tests
+
+To ensure system reliability, we maintain a comprehensive test suite. To run the tests:
+
+```bash
+# Ensure you are in the project root and venv is activated
+pytest
+```
+
+## Security features
+
+This project adheres to high-security standards appropriate for mission-critical systems:
+
+- **Authentication:** OAuth2 with JWT for secure user sessions.
+- **Data Protection:** Passwords are hashed using robust cryptographic algorithms.
+- **Traceability:**
+  - **Request ID:** Every request is assigned a unique UUID for end-to-end tracing across all logs.
+  - **Audit Logging:** Detailed security audit logs for authentication attempts (success/failure) and resource access (CRUD actions by specific users).
+- **Hardened Logging:** Structured JSON logging with size-based rotation, capturing critical metadata (app version, environment, process ID, thread, line number).
+
 ## Run with Docker
 
 ```bash
