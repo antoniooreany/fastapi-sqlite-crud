@@ -2,13 +2,9 @@
 
 Simple REST API built with FastAPI, SQLAlchemy and SQLite, plus a tiny frontend served by FastAPI.
 
-## Features
+## Documentation
 
-- GET `/items/`
-- GET `/items/{id}`
-- POST `/items/`
-- PATCH `/items/{id}`
-- DELETE `/items/{id}`
+Detailed API documentation and architectural information are available on our [project documentation site](https://antoniooreany.github.io/fastapi-sqlite-crud/).
 
 ## Project structure
 
