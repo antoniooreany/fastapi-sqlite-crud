@@ -31,12 +31,17 @@ def setup_db():
 
 @pytest.fixture
 def client():
-    return TestClient(app)
+    # Clear test database before each test
+    Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
+    client = TestClient(app)
+    # Register and login once
+    client.post("/users/", json={"username": "testuser", "password": "securepassword"})
+    return client
 
 @pytest.fixture
 def auth_headers(client):
-    client.post("/users/", json={"username": "testuser", "password": "testpassword123"})
-    response = client.post("/token", data={"username": "testuser", "password": "testpassword123"})
+    response = client.post("/token", data={"username": "testuser", "password": "securepassword"})
     token = response.json()["access_token"]
     return {"Authorization": f"Bearer {token}"}
 
