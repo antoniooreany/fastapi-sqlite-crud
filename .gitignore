@@ -6,5 +6,7 @@ items.db
 test.db
 .coverage
 .env
+site/
 logs/
 output/
+.pytest_cache/
