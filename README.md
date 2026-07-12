@@ -47,10 +47,14 @@ fastapi-sqlite-crud/
 ├── static/               # Frontend files
 ├── tests/                # Test suite
 ├── .gitignore            # Git ignored files
+├── CHANGELOG.md          # Release history
+├── CONTRIBUTING.md       # Contribution guide
 ├── Dockerfile            # Docker build instructions
 ├── docker-compose.yml    # Docker orchestration
+├── LICENSE               # Project license
 ├── mkdocs.yml            # MkDocs configuration
 ├── README.md             # Project documentation
+├── SECURITY.md           # Security policy
 └── requirements.txt      # Project dependencies
 ```
 
@@ -213,6 +217,53 @@ Then open:
 - `http://127.0.0.1:8000/` — frontend
 - `http://127.0.0.1:8000/docs` — Swagger UI
 
+## Branching strategy
+
+This repository follows a simple Git Flow-style branching model:
+
+- `main` — stable, release-ready branch.
+- `develop` — integration branch for ongoing work.
+- `gh-pages` — documentation deployment branch for the project site.
+
+All new work is done in short-lived topic branches created from `develop`:
+
+- `feature/<name>` — new features and enhancements.
+- `fix/<name>` — bug fixes and small corrections.
+- `docs/<name>` — documentation-only changes.
+
+Typical workflow:
+
+1. Start from an up-to-date `develop`:
+   ```bash
+   git checkout develop
+   git pull origin develop
+   ```
+
+2. Create a topic branch:
+   ```bash
+   git checkout -b feature/your-change
+   ```
+
+3. Commit and push changes:
+   ```bash
+   git commit -m "feat: describe your change"
+   git push origin feature/your-change
+   ```
+
+4. Open a Pull Request into `develop` and iterate until CI and review pass.
+
+5. When ready for release, changes from `develop` are promoted to `main`
+   via a dedicated release Pull Request and tagged (for example `v0.1.0`).
+
+6. After a topic branch is merged, it is deleted locally and on the remote
+   to keep the branch list clean:
+   ```bash
+   git branch -d feature/your-change
+   git push origin --delete feature/your-change
+   ```
+
+`main` and `develop` are long-lived branches. All other branches are short-lived and exist only for the duration of a specific feature, fix, or docs update.
+
 ## Development notes
 
 A few practical repository conventions are worth keeping in mind:
@@ -237,4 +288,4 @@ That makes it a stronger portfolio project than a single-file API example.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+This project is licensed under the terms of the license provided in the `LICENSE` file.
