@@ -1,4 +1,4 @@
-# FastAPI SQLite CRUD Example
+# Todo API Service
 
 A small but production-minded FastAPI project that demonstrates CRUD operations, JWT-based authentication, SQLite persistence, structured logging, automated tests, Docker support, and project documentation.
 
@@ -289,3 +289,8 @@ That makes it a stronger portfolio project than a single-file API example.
 ## License
 
 This project is licensed under the terms of the license provided in the `LICENSE` file.
+
+## Related project
+
+Companion project: [Todo Analytics Dashboard](https://github.com/antoniooreany/todo-analytics-dashboard)
+
