@@ -6,3 +6,4 @@ items.db
 test.db
 .coverage
 .env
+site/
