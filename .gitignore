@@ -6,3 +6,5 @@ items.db
 test.db
 .coverage
 .env
+logs/
+output/
