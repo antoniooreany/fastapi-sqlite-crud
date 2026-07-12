@@ -4,3 +4,13 @@ theme:
 plugins:
   - search
   - mkdocstrings
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Architecture: architecture.md
+  - Authentication: authentication.md
+  - API Usage: api-usage.md
+  - Testing and Quality: testing-and-quality.md
+  - API Reference:
+      - main: api-reference.md
