@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from . import crud, schemas
+from typing import List, Optional
+from . import crud, schemas, models
 from passlib.context import CryptContext
 
 # Use a simpler hashing scheme if bcrypt is problematic in tests
@@ -9,22 +10,22 @@ pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
 
 # Item Services
 
-def get_all_items(db: Session):
+def get_all_items(db: Session) -> List[models.ItemDB]:
     return crud.get_all(db)
 
-def get_item_by_id(db: Session, item_id: int):
+def get_item_by_id(db: Session, item_id: int) -> models.ItemDB:
     item = crud.get_by_id(db, item_id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     return item
 
-def create_new_item(db: Session, item_create: schemas.ItemCreate):
+def create_new_item(db: Session, item_create: schemas.ItemCreate) -> models.ItemDB:
     # Business rule: Price must be positive
     if item_create.price <= 0:
         raise HTTPException(status_code=400, detail="Price must be positive")
     return crud.create(db, item_create)
 
-def update_item_service(db: Session, item_id: int, item_update: schemas.ItemUpdate):
+def update_item_service(db: Session, item_id: int, item_update: schemas.ItemUpdate) -> models.ItemDB:
     item = crud.get_by_id(db, item_id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -34,14 +35,14 @@ def update_item_service(db: Session, item_id: int, item_update: schemas.ItemUpda
         
     return crud.update(db, item, item_update)
 
-def delete_item_service(db: Session, item_id: int):
+def delete_item_service(db: Session, item_id: int) -> models.ItemDB:
     item = crud.get_by_id(db, item_id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     return crud.delete(db, item)
 
 # Auth Services
-def authenticate_user(db: Session, username, password):
+def authenticate_user(db: Session, username: str, password: str) -> Optional[models.UserDB]:
     user = crud.get_user_by_username(db, username)
     # The traceback indicates the issue is inside bcrypt, potentially related to the internal 
     # mock hashes in passlib. Let's try passing the password as bytes and ensure it's short.
@@ -52,7 +53,7 @@ def authenticate_user(db: Session, username, password):
         return None
     return user
 
-def register_user(db: Session, user_create: schemas.UserCreate):
+def register_user(db: Session, user_create: schemas.UserCreate) -> models.UserDB:
     if crud.get_user_by_username(db, user_create.username):
         raise HTTPException(status_code=400, detail="Username already registered")
     

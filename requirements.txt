@@ -7,3 +7,7 @@ pytest-cov
 mkdocs
 mkdocs-material
 mkdocstrings[python]
+pydantic-settings
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
